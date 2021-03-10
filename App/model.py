@@ -31,6 +31,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as se
 from DISClib.Algorithms.Sorting import insertionsort as ie
+from DISClib.Algorithms.Sorting import quicksort as qk
+from DISClib.Algorithms.Sorting import mergesort as mr
 
 assert cf
 
@@ -75,7 +77,7 @@ def add_video(videos, line):
     categories = lt.newList(datastructure='ARRAY_LIST')
     tags = lt.newList()
     for element in line.items():
-        if element[0] in ['likes','dislikes','views','comment_count']:
+        if element[0] in ['likes','dislikes','views','comment_count','category_id']:
             lt.addLast(categories, int(element[1]))
         elif element[0] != 'tags':
             lt.addLast(categories, element[1])
@@ -111,6 +113,9 @@ def element_videos(videos, i, j):
         return videos['elements'][i][0]['elements'][j]
     else:
         return 'error'
+
+def element_videos_with_order(videos, index_order, i, j):
+    return element_videos(videos, index_order['indexes'][i], j)
 
 
 def parameter_minimum(videos, index_order, index_parameter, parameter, floor, ceiling):
@@ -186,6 +191,9 @@ def range_by_parameter(videos, order, parameters):
 def has_tag(videos, i, tag):
     return lt.isPresent(videos['elements'][i][1], tag)
 
+def has_tag_with_order(videos, index_order, i, tag):
+    return has_tag(videos, index_order[i], tag)
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def base_sort_function(videos, i, parameter_indexes):
@@ -243,8 +251,12 @@ def inefficient_ordering(videos, size, algorithm = 'shell'):
         temp_list = sa.sort(temp_list, cmpVideosByViews)
     elif(algorithm == 'insertion'):
         temp_list = ie.sort(temp_list, cmpVideosByViews)
-    else:
+    elif(algorithm == 'selection'):
         temp_list = se.sort(temp_list, cmpVideosByViews)
+    elif(algorithm == 'quick'):
+        temp_list = qk.sort(temp_list, cmpVideosByViews)
+    else:
+        temp_list = mr.sort(temp_list, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, temp_list
@@ -254,7 +266,7 @@ def inefficient_ordering(videos, size, algorithm = 'shell'):
 if __name__ == '__main__':
     import time
     print("Loading vidios", time.asctime(time.gmtime()))
-    vidios = create_videos(cf.data_dir+'videos-all.csv')
+    vidios = create_videos(cf.data_dir+'videos-small.csv')
     print("Videos loaded! Size: ", lt.size(vidios), "\n")
 
     print("Creating order", time.asctime(time.gmtime()), "\n")
