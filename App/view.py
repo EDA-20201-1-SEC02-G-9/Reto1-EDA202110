@@ -166,14 +166,14 @@ while True:
             printResults(print_parameters, result)
         input("Presione cualquier tecla para continuar.")
     elif int(inputs[0]) == 3:
-        country = input("Introduzca el id de el país que quiere consultar: ")
+        country = input("Introduzca el país que quiere consultar: ")
         print_parameters = ['title', 'channel_title', 'country']
         result = controller.most_days_tendency(catalog, req2_order, [country], print_parameters)
         print_parameters.append('Días')
         printResults(print_parameters, result)
     elif int(inputs[0]) == 4:
         # TODO category name en vez de id
-        category = input("Introduzca el id de la categoría que quiere consultar: ")
+        category = int(input("Introduzca el id de la categoría que quiere consultar: "))
         print_parameters = ['title', 'channel_title', 'category_id']
         result = controller.most_days_tendency(catalog, req3_order, [category], print_parameters)
         print_parameters.append('Días')
@@ -183,6 +183,7 @@ while True:
         print_parameters = ['title', 'channel_title', 'publish_time', 'views', 'likes', 'dislikes']
         result = controller.top_videos_order(catalog, req4_order, None, print_parameters, n=1, tag=tag)
         printResults(print_parameters, result)
+        # TODO print tags (result[0][0] es el índice del elemento)
     else:
         sys.exit(0)
 sys.exit(0)

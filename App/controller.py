@@ -56,7 +56,7 @@ def initCreate_videos():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    videos = model.create_videos(filepath="Data/videos-small.csv")
+    videos = model.create_videos(filepath="Data/videos-all.csv")
     return videos
 
 def initLista_tags():
@@ -82,6 +82,8 @@ def most_days_tendency(videos, index_order, selection_parameters, print_paramete
     ceiling = len(index_order) - 1
     if selection_parameters:
         floor, ceiling = model.range_by_parameter(videos, index_order, selection_parameters)
+    if ceiling < floor:
+        return []
     i = floor
     imax = floor
     maxdays = 0
@@ -113,6 +115,8 @@ def top_videos_order(videos, index_order, selection_parameters, print_parameters
     ceiling = len(index_order) - 1
     if selection_parameters:
         floor, ceiling = model.range_by_parameter(videos, index_order, selection_parameters)
+    if ceiling < floor:
+        return []
     print_indexes = names_to_indexes(print_parameters)
     if not n:
         n = ceiling - floor + 1

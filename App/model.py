@@ -77,7 +77,7 @@ def add_video(videos, line):
     categories = lt.newList(datastructure='ARRAY_LIST')
     tags = lt.newList()
     for element in line.items():
-        if element[0] in ['likes','dislikes','views','comment_count']:
+        if element[0] in ['likes','dislikes','views','comment_count','category_id']:
             lt.addLast(categories, int(element[1]))
         elif element[0] != 'tags':
             lt.addLast(categories, element[1])
