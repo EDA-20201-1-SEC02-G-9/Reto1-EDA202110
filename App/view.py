@@ -56,6 +56,7 @@ def initTags():
     tags=controller.initLista_tags()
     for a in tags["elements"]:
         print (a[0],"  ",a[1])
+    return tags
 
 def printMostViewed(ord_videos, sample= 10):
     size = lt.size(ord_videos)
@@ -100,6 +101,7 @@ req1_order = None
 req2_order = None
 req3_order = None
 req4_order = None
+tag_list = None
 """
 Menu principal
 """
@@ -129,7 +131,7 @@ while True:
         print("Likes: ",dir[7])
         print("Dislikes: ",dir[8],"\n")
         print("Id  Nombre")
-        initTags()
+        tag_list = initTags()
         
     elif int(inputs[0]) == 2:
         if debug:
@@ -157,8 +159,8 @@ while True:
                 printMostViewed(result, sample=sample)
         else:
             country = input("Introduzca el nombre del país que quiere consultar: ")
-            # TODO category name en vez de id
-            category = input("Introduzca el id de la categoría que quiere consultar: ")
+            category = input("Introduzca el nombre de la categoría que quiere consultar: ")
+            category = controller.tag_index(tag_list, category)
             sample = int(input("Introduzca el número de vídeos que quiere listar: "))
             print_parameters = ['trending_date', 'title', 'channel_title', 'publish_time', 'views', 'likes', 'dislikes']
             result = controller.top_videos_order(catalog, req1_order, [country, category],
@@ -173,7 +175,8 @@ while True:
         printResults(print_parameters, result)
     elif int(inputs[0]) == 4:
         # TODO category name en vez de id
-        category = int(input("Introduzca el id de la categoría que quiere consultar: "))
+        category = input("Introduzca el id de la categoría que quiere consultar: ")
+        category = controller.tag_index(tag_list, category)
         print_parameters = ['title', 'channel_title', 'category_id']
         result = controller.most_days_tendency(catalog, req3_order, [category], print_parameters)
         print_parameters.append('Días')

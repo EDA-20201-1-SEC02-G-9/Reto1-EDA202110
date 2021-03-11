@@ -141,5 +141,7 @@ def top_videos_order(videos, index_order, selection_parameters, print_parameters
             i += 1
     return result
 
+def tag_index(tags, name):
+    return int(model.tag_index(tags, name))
 
 # Funciones de consulta sobre el catálogo

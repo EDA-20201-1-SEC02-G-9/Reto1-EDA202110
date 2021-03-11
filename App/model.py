@@ -194,6 +194,16 @@ def has_tag(videos, i, tag):
 def has_tag_with_order(videos, index_order, i, tag):
     return has_tag(videos, index_order[i], tag)
 
+def tag_index(tags, name):
+    result = -1
+    for a in tags['elements']:
+        if name in a[1]:
+            if result == -1:
+                result = a[0]
+            else:
+                result =-1
+                break
+    return result
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def base_sort_function(videos, i, parameter_indexes):
