@@ -1,5 +1,11 @@
+
+
 Diego Alejandro Ramirez Garrido - d.ramirezg@uniandes.edu.co - 202013233
+
+
 Sebastián Murcia Gómez - s.murciag@uniandes.edu.co - 202015229
+
+
 
 #ISIS1225 - Librerias de soporte
 
